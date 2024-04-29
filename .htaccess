@@ -1,0 +1,24 @@
+RewriteEngine on
+
+RewriteCond %{REQUEST_FILENAME} !-d 
+RewriteCond %{REQUEST_FILENAME}\.php -f 
+RewriteRule ^([0-9A-z_-]+)$ $1.php
+
+RewriteRule ^register/?$ pages/register.php [NC,L]
+RewriteRule ^login/?$ pages/login.php [NC,L]
+RewriteRule ^about-us/?$ pages/about.php [NC,L]
+RewriteRule ^contact/?$ pages/contact.php [NC,L]
+RewriteRule ^maps/?$ pages/maps.php [NC,L]
+
+RewriteRule ^admin/?$ pages/admin/index.php [NC,L]
+RewriteRule ^admin/logout?$ pages/admin/logout.php [NC,L]
+RewriteRule ^admin/turmas/crisma?$ pages/admin/views/crisma.php [NC,L]
+RewriteRule ^admin/turmas/catequese?$ pages/admin/views/catequese.php [NC,L]
+RewriteRule ^admin/turmas/acolitos$ pages/admin/views/acolitos.php [NC,L]
+RewriteRule ^admin/turmas/escola?$ pages/admin/views/escola.php [NC,L]
+
+RewriteRule ^admin/turmas/crisma/add?$ pages/admin/recorders/addCrisma.php [NC,L]
+RewriteRule ^admin/registers?$ pages/admin/views/registers.php [NC,L]
+RewriteRule ^admin/registers/add?$ pages/admin/recorders/addRegister.php [NC,L]
+
+ErrorDocument 404 /404.php

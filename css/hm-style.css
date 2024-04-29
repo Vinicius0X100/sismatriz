@@ -1,0 +1,27 @@
+:root{
+    --font-default:"Montserrat", sans-serif;
+}
+body{
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+    background-color: #FFE5E1;
+}
+
+.left-head{
+    display: inline-flex;
+    flex-direction: column;   
+}
+.crr-cus{
+    width: 100%!important; 
+}
+.content-mainner{
+    font-family: var(--font-default);
+}
+.main-slides{
+    margin-bottom: 10px;
+}
+.images-content{
+    width: 33vw;
+    border-radius: 4px;
+}
