@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SisMatriz - Registro Geral</title>
+    <title>SisMatriz - Escalas</title>
     <link rel="stylesheet" href="<?php echo $domain; ?>/css/sidebar-adm.css" />
     <link rel="stylesheet" href="<?php echo $domain; ?>/css/global.css" />
     <link rel="icon" type="image/x-icon" href="<?php echo $domain; ?>/img/logo.png">
@@ -36,7 +36,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5 mdi mdi-user-account" id="exampleModalLabel">Ficha de Registro</h1>
+        <h1 class="modal-title fs-5 mdi mdi-user-account" id="exampleModalLabel">Escalas</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body" id="infoUsuarioBody">
@@ -54,14 +54,14 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Confirmar Exclusão</h5>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <button type="button" class="close btn-time" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <p>Tem certeza de que deseja deletar este usuário?</p>
+                <p>Tem certeza de que deseja deletar esta escala?</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-danger" onclick="deletarUsuario()">Deletar</button>
+                <button type="button" class="btn btn-danger" onclick="deletarEscala()">Deletar</button>
             </div>
         </div>
     </div>
@@ -76,14 +76,15 @@
                      <ol class="breadcrumb pagination-st">
                        <li class="breadcrumb-item"><a href="<?php echo $domain; ?>admin">Home</a></li>
                        <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
-                       <li class="breadcrumb-item active" aria-current="page">Cadastros</li>  
+                       <li class="breadcrumb-item active" aria-current="page">Min. Acólitos</li> 
+                       <li class="breadcrumb-item active" aria-current="page">Escalas</li>  
                      </ol>
                     </nav>
                 
                   <div class="spacement-div mt-5">
                   <div class="row mb-2">
                       <div class="col-lg-12">
-                        <a href="<?php echo $domain; ?>admin/registers/add" class="btn btn-dark btn-sm"><span class="mdi mdi-plus"></span> Novo Registro</a>                               
+                        <a href="<?php echo $domain; ?>admin/ac/escalas/add" class="btn btn-dark btn-sm"><span class="mdi mdi-plus"></span> Nova Escala</a>                               
                       </div>
                      </div>
                     <div class="card panel-table">
@@ -91,7 +92,7 @@
                             <form class="mb-3" method="get">
                                 <div class="row mb-2">
                                     <div class="col-lg-12">
-                                        <input type="text" id="searchInput" class="form-control" placeholder="Pesquisar por nome...">
+                                        <input type="text" id="searchInput" class="form-control" placeholder="Digite o mês...">
                                     </div>
                                 </div>
 
@@ -107,44 +108,39 @@
                              <thead class="table-dark">
                                 <tr>
                                  <th scope="col">#</th>
-                                 <th scope="col">Nome</th>
-                                 <th scope="col">E-mail</th>
-                                 <th scope="col">Num. Contato</th>
-                                 <th scope="col">Nascimento</th>
-                                 <th scope="col">Idade</th>
-                                 <th scope="col">Estado. Civil</th>
-                                 <th scope="col">Cidade</th>
-                                 <th scope="col">Status. Sistema</th>
+                                 <th scope="col">Mês</th>
+                                 <th scope="col">Igreja</th>
+                                 <th scope="col">Data de lançamento</th>
+                                 <th scope="col">Qntd. Acólitos Escalados</th>
+                                 <th scope="col">Situação</th>
                                  <th scope="col"></th>
                                 </tr>
                              </thead>
                              <tbody>
                              <?php    
-                               $consulta = "SELECT * FROM registers ORDER BY id DESC";
+                               $consulta = "SELECT * FROM escalas ORDER BY es_id DESC";
                                $con = $mysqli->query($consulta) or die (@mysqli_error());
-                               $turma_queried = $con->fetch_all(MYSQLI_ASSOC);
+                               $escala_queried = $con->fetch_all(MYSQLI_ASSOC);
                              ?>
-                             <?php foreach($turma_queried as $info): ?>
+                             <?php foreach($escala_queried as $info): ?>
                                 <tr style="font-size:15px;">
-                                     <th scope="row"><?php echo $info['id']; ?></th>
-                                     <td><?php echo $info['name']; ?></td>
-                                     <td><?php echo $info['email']; ?></td>
-                                     <td><?php echo $info['phone']; ?></td>
-                                     <td><?php echo $info['born_date']; ?></td>
-                                     <td><?php echo $info['age']; ?></td>
-                                     <td><?php echo $info['civil_status']; ?></td>
-                                     <td><?php echo $info['city']; ?></td>
+                                     <th scope="row"><?php echo $info['es_id']; ?></th>
+                                     <td><?php echo $info['month']; ?></td>
+                                     <td><?php echo $info['church']; ?></td>
+                                     <td><?php echo $info['send_date']; ?></td>
+                                     <td><?php echo $info['qntd_acolitos']; ?> escalados</td>
+                                    
                                      <td>
-                                     <?php if($info['status'] == 0): ?>
-                                        <span class="badge text-bg-success">Em atividade</span>
-                                     <?php elseif($info['status'] == 1): ?>
-                                        <span class="badge text-bg-danger">Inativo</span>
+                                     <?php if($info['situation'] == 0): ?>
+                                        <span class="badge text-bg-warning">Em progresso</span>
+                                     <?php elseif($info['situation'] == 1): ?>
+                                        <span class="badge text-bg-success">Concluída</span>
                                      <?php endif; ?>
                                      </td>
                                      <td>
-                                        <button onClick="abrirModal(<?php echo isset($info['id']) ? $info['id'] : 0; ?>)"  class="btn btn-primary btn-sm"><span class="mdi mdi-eye"></span></button>
-                                        <a href="<?php echo $domain; ?>admin/edit-register/<?php echo $info['id']; ?>/<?php echo $info['id']; ?>" class="btn btn-success btn-sm"><span class="mdi mdi-pencil"></span></a>
-                                        <button onClick="confirmarExclusao(<?php echo isset($info['id']) ? $info['id'] : 0; ?>)" class="btn btn-danger btn-sm"><span class="mdi mdi-trash-can"></span></button>
+                                        <button onClick="abrirModal(<?php echo isset($info['id']) ? $info['es_id'] : 0; ?>)"  class="btn btn-primary btn-sm"><span class="mdi mdi-eye"></span></button>
+                                        <a href="<?php echo $domain; ?>admin/edit-escala/<?php echo $info['es_id']; ?>/<?php echo $info['es_id']; ?>" class="btn btn-success btn-sm"><span class="mdi mdi-pencil"></span></a>
+                                        <button onClick="confirmarExclusao(<?php echo isset($info['es_id']) ? $info['es_id'] : 0; ?>)" class="btn btn-danger btn-sm"><span class="mdi mdi-trash-can"></span></button>
                                     </td>
                                 </tr>
                                 <?php endforeach?>
@@ -188,13 +184,13 @@
     }
 
     // Função para deletar o usuário
-    function deletarUsuario() {
+    function deletarEscala() {
         var userId = $('#confirmacaoExclusaoModal').data('userId');
 
         // Fazer requisição AJAX para deletar o usuário
         $.ajax({
             type: 'POST',
-            url: '../../core/deleteRegister.php',
+            url: '../../core/deleteEscala.php',
             data: { userId: userId },
             success: function(response) {
                 // Exibir mensagem de sucesso ou recarregar a página
@@ -232,10 +228,10 @@
     });
 });
 </script>
-<script src="<?php echo $domain; ?>/js/spinner.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
- <script src="<?php echo $domain; ?>/js/sidebar-adm.js"></script>
- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>      
+    <script src="<?php echo $domain; ?>/js/sidebar-adm.js"></script>
+    <script src="<?php echo $domain; ?>/js/spinner.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>      
 </body>
 </html>

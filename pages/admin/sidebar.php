@@ -12,7 +12,7 @@
       
         <li>
           
-          <a href="#">
+          <a href="<?php echo $domain; ?>admin">
             <i class='bx bx-grid-alt' ></i>
             <span class="link_name">Dashboard</span>
           </a>
@@ -124,13 +124,13 @@
         
         <li>
         
-          <a href="#">
+          <a href="<?php echo $domain; ?>admin/explore">
             <i class='bx bx-compass' ></i>
             <span class="link_name">Explorar</span>
           </a>
           
           <ul class="sub-menu blank">
-            <li><a class="link_name" href="#">Explorar</a></li>
+            <li><a class="link_name" href="<?php echo $domain; ?>admin/explore">Explorar</a></li>
           </ul>
         </li>
         <li>
@@ -147,13 +147,13 @@
           
         <li>
           
-          <a href="#">
+          <a href="<?php echo $domain; ?>admin/settings">
             <i class='bx bx-cog' ></i>
             <span class="link_name">Configurações</span>
           </a>
           
           <ul class="sub-menu blank">
-            <li><a class="link_name" href="#">Configurações</a></li>
+            <li><a class="link_name" href="<?php echo $domain; ?>admin/settings">Configurações</a></li>
           </ul>
         </li>
         <li>
@@ -190,3 +190,11 @@
       </ul><!--Fecha ul-->
     </div>
     <!--Fecha Sidebar-->
+     <!-- Spinner -->
+  <div id="loader">
+    <div class="text-center">
+      <div class="spinner-grow text-dark" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+     </div>
+  </div>

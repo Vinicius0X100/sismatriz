@@ -75,6 +75,7 @@
        <ol class="breadcrumb pagination-st">
         <li class="breadcrumb-item"><a href="<?php echo $domain; ?>admin">Home</a></li>
         <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+        <li class="breadcrumb-item active" aria-current="page">Registros</li>
         <li class="breadcrumb-item active" aria-current="page">Cadastros</li>
         <li class="breadcrumb-item active" aria-current="page">Novo registro</li>
        </ol>
@@ -99,7 +100,7 @@
                <label for="floatingInput" style="margin-left:10px;">Nome completo</label>
              </div>
              <div class="col-4 form-floating">
-               <input type="text" name="email" class="form-control" id="floatingInput1" placeholder="name@example.com" required>
+               <input type="email" name="email" class="form-control" id="floatingInput1" placeholder="name@example.com" required>
                <label for="floatingInput1" style="margin-left:10px;">E-mail</label>
              </div>
              
@@ -458,14 +459,14 @@
              <hr>
              <div class="col-4">
                <label class="visually-hidden" for="specificSizeSelect">Estado Civil</label>
-                <select class="form-select form-control-lg" style="height:60px;" id="specificSizeSelect" name="state" required>
-                <option value="1">Solteiro(a)</option>
-                <option value="2">Casado(a)</option>
-                <option value="3">União Estavel</option>
-                <option value="4">Divorciado</option>
-                <option value="5">Separado</option>
-                <option value="6">Viúvo(a)</option>
-                <option value="7">Namorando</option>
+                <select class="form-select form-control-lg" style="height:60px;" id="specificSizeSelect" name="civil_status" required>
+                <option>Solteiro(a)</option>
+                <option>Casado(a)</option>
+                <option>União Estavel</option>
+                <option>Divorciado</option>
+                <option>Separado</option>
+                <option>Viuvo(a)</option>
+                <option>Namorando</option>
                 
                </select>
              </div>
@@ -507,12 +508,12 @@
              </div>
             <hr>
             <div class="col-5">
-                <label for="formFile" class="form-label">Foto de perfil(opcional)</label>
+                <label for="formFile" class="form-label">Foto <strong>3x4</strong> (opcional) </label>
                 <input class="form-control" type="file" id="formFile" name="photo" accept="image/*">
             </div>
              <div class="mb-3">
                 <button type="submit" class="btn btn-sm btn-success mdi mdi-check-circle"> Salvar e Enviar</button>
-                <a href="<?php echo $domain; ?>admin/turmas/crisma" class="btn btn-sm btn-danger mdi mdi-close-circle"> Voltar</a>
+                <a href="<?php echo $domain; ?>admin/registers" class="btn btn-sm btn-danger mdi mdi-close-circle"> Voltar</a>
              </div>
            </form>
             
@@ -546,6 +547,8 @@
         });
     </script>
 <script src="<?php echo $domain; ?>/js/sidebar-adm.js"></script>
+<script src="<?php echo $domain; ?>/js/spinner.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>         
 </body>

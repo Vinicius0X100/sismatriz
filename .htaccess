@@ -16,9 +16,15 @@ RewriteRule ^admin/turmas/crisma?$ pages/admin/views/crisma.php [NC,L]
 RewriteRule ^admin/turmas/catequese?$ pages/admin/views/catequese.php [NC,L]
 RewriteRule ^admin/turmas/acolitos$ pages/admin/views/acolitos.php [NC,L]
 RewriteRule ^admin/turmas/escola?$ pages/admin/views/escola.php [NC,L]
+RewriteRule ^admin/ac/escalas$ pages/admin/views/escalas.php [NC,L]
 
 RewriteRule ^admin/turmas/crisma/add?$ pages/admin/recorders/addCrisma.php [NC,L]
+RewriteRule ^admin/ac/escalas/add?$ pages/admin/recorders/addEscala.php [NC,L]
 RewriteRule ^admin/registers?$ pages/admin/views/registers.php [NC,L]
 RewriteRule ^admin/registers/add?$ pages/admin/recorders/addRegister.php [NC,L]
+RewriteRule ^admin/edit-register/([0-9A-z_-]+)\/([0-9A-z_-]+)$ pages/admin/edit-register.php?id=$1
+
+RewriteRule ^admin/settings?$ pages/admin/views/settings.php [NC,L]
+RewriteRule ^admin/explore?$ pages/admin/views/explore.php [NC,L]
 
 ErrorDocument 404 /404.php

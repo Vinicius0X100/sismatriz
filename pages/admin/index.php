@@ -34,8 +34,10 @@ if(file_exists($_SERVER['DOCUMENT_ROOT']."/core/config.php"))
          margin-left:6.5vw;
          
        }
+       
  
     </style>
+    
       <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
@@ -66,23 +68,79 @@ if(file_exists($_SERVER['DOCUMENT_ROOT']."/core/config.php"))
         </div>
       </div>
 
-      <div class="col-md-5 mb-3">
+      <div class="col-md-4 mb-3">
        <div class="spacement-div">
-        <div class="card">
-         <div class="card-header text-bg-warning ">
-          <span class="lead">Últimos Registros</span>
-         </div>
+        <div class="card">             
          <div class="card-body">
+          <span class="lead">Total de Registros</span>
+          <hr>
+          <span class="display-5 mdi mdi-badge-account">
+          <?php
            
+            // Consulta SQL para contar o número de registros
+            $consulta = "SELECT COUNT(*) as total_registros FROM registers";
+            $resultado = $mysqli->query($consulta) or die(mysqli_error($mysqli));
+
+            // Extrai o número total de registros
+            $total_registros = $resultado->fetch_assoc()['total_registros'];
+
+            // Exibe o resultado em um echo
+            echo $total_registros;
+            ?>
+          </span>
          </div>
         </div> 
+       </div>
+      </div>
+      <div class="col-md-4">
+         <div class="card">         
+          <div class="card-body">
+          <canvas id="myChart" style="width:100%;">
+            <p>Hello Fallback World</p>
+          </canvas>
+         </div>      
        </div>
       </div>
     </div>
    </main>
 
-<script src="<?php echo $domain; ?>/js/sidebar-adm.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+
+   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+   
+   <script>
+      const totalRegistros = <?php echo $total_registros; ?>;
+
+const ctx = document.getElementById('myChart');
+
+new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Total de Registros'],
+        datasets: [{
+            label: 'Total de Registros',
+            data: [totalRegistros],
+            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+
+
+   </script>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+   <script src="<?php echo $domain; ?>/js/spinner.js"></script>
+  <script src="<?php echo $domain; ?>/js/sidebar-adm.js"></script>
+
+ <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>  
+
 </body>
 </html>
