@@ -73,7 +73,7 @@
           <ul class="sub-menu">
           
             <li><a class="link_name" href="#">Registros</a></li>
-            <li><a href="#">Assistencia Social</a></li>
+            <li><a href="<?php echo $domain; ?>admin/social-assistant">Assistencia Social</a></li>
             <li><a href="<?php echo $domain; ?>admin/registers">Cadastros</a></li>
           
           </ul>

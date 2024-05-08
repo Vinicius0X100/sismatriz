@@ -18,6 +18,9 @@ RewriteRule ^admin/turmas/acolitos$ pages/admin/views/acolitos.php [NC,L]
 RewriteRule ^admin/turmas/escola?$ pages/admin/views/escola.php [NC,L]
 RewriteRule ^admin/ac/escalas$ pages/admin/views/escalas.php [NC,L]
 
+RewriteRule ^admin/social-assistant?$ pages/admin/views/socialassistant.php [NC,L]
+RewriteRule ^admin/social-assistant/new?$ pages/admin/recorders/socialassistant_new.php [NC,L]
+
 RewriteRule ^admin/turmas/crisma/add?$ pages/admin/recorders/addCrisma.php [NC,L]
 RewriteRule ^admin/ac/escalas/add?$ pages/admin/recorders/addEscala.php [NC,L]
 RewriteRule ^admin/registers?$ pages/admin/views/registers.php [NC,L]
