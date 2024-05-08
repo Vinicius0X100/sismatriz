@@ -94,8 +94,24 @@
                                   </div>
                                 </div>
                             </div>
+                              
+                           
+                            <div class="col-md-3" style="font-family:var(--font-default);">
+                             <a style="text-decoration:none;" href="<?php echo $domain; ?>admin/social-assistant">
+                                <div class="card panel-selector mt-4 text-center">
+                                  <div class="card-body">
+                                    <span style="font-size:4vw;" class="mdi mdi-group"></span>
+                                    <hr>
+                                    <span class="fs-4">Assistência Social</span>
+                                  
+                                    
+                                  </div>
+                                </div>
+                               </a>
+                            </div>
 
                             <div class="col-md-3" style="font-family:var(--font-default);">
+                             <a style="text-decoration:none;" href="<?php echo $domain; ?>admin/finantial">
                                 <div class="card panel-selector mt-4 text-center">
                                   <div class="card-body">
                                     <span style="font-size:4vw;" class="mdi mdi-currency-usd"></span>
@@ -103,6 +119,7 @@
                                     <span class="fs-4">Financeiro</span>
                                   </div>
                                 </div>
+                              </a>
                             </div>
 
                             <div class="col-md-3" style="font-family:var(--font-default);">
@@ -138,7 +155,7 @@
                             </div>
 
                             <div class="col-md-3" style="font-family:var(--font-default);">
-                            <a href="<?php echo $domain; ?>admin/settings">
+                            <a style="text-decoration:none;" href="<?php echo $domain; ?>admin/settings">
                                 <div class="card panel-selector mt-4 text-center">
                                   <div class="card-body">
                                     <span style="font-size:4vw;" class="mdi mdi-engine"></span>
