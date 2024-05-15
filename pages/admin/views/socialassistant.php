@@ -20,7 +20,24 @@
     <script src="https://kit.fontawesome.com/2546cc9843.js" crossorigin="anonymous"></script>
 </head>
 <body>
-  <?php include $_SERVER['DOCUMENT_ROOT']."/pages/admin/sidebar.php"; ?> 
+  <?php include $_SERVER['DOCUMENT_ROOT']."/pages/admin/sidebar.php"; ?>
+  <div class="modal" id="confirmacaoExclusaoModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirmar Exclusão</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Tem certeza de que deseja deletar este item?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger" onclick="deletarItem()">Deletar</button>
+            </div>
+        </div>
+    </div>
+</div> 
    <main class="container-fluid">
      <div class="row">
         <div class="col-lg-12 ">
@@ -53,11 +70,14 @@
                                         <div class="col-md-2">
                                           <span class="fs-6"><?php echo $info['type']; ?></span>
                                         </div>
-                                        <div class="col-lg-7 text-center">
+                                        <div class="col-lg-6 text-center">
                                           <span class="fw-bold"><?php echo $info['description']; ?></span>
                                         </div>
                                         <div class="col-sm-2 text-right">
                                           <span class="badge text-bg-dark"><?php echo $info['qntd_destributed']; ?> disponíveis</span>
+                                        </div>
+                                        <div class="col-sm-2 text-right">
+                                          <button onClick="confirmarExclusao(<?php echo isset($info['s_id']) ? $info['s_id'] : 0; ?>)" class="btn btn-danger btn-sm"><span class="mdi mdi-trash-can"></span></button>
                                         </div>
                                       </div>
                                     </div>
@@ -73,5 +93,35 @@
      </div>
    </main>
   <?php include $_SERVER['DOCUMENT_ROOT']."/pages/admin/footer.php"; ?>
+  <script>
+    // Função para confirmar a exclusão e abrir o modal de confirmação
+    function confirmarExclusao(itemId) {
+        $('#confirmacaoExclusaoModal').modal('show');
+        $('#confirmacaoExclusaoModal').data('itemId', itemId); // Armazena o ID do usuário no modal
+    }
+
+    // Função para deletar o usuário
+    function deletarItem() {
+        var itemId = $('#confirmacaoExclusaoModal').data('itemId');
+
+        // Fazer requisição AJAX para deletar o usuário
+        $.ajax({
+            type: 'POST',
+            url: '../../core/deleteItemSocialAssistant.php',
+            data: { itemId: itemId },
+            success: function(response) {
+                // Exibir mensagem de sucesso ou recarregar a página
+                alert('Item deletado com sucesso!');
+                window.location.reload(); // Recarregar a página para refletir as alterações
+            },
+            error: function(xhr, status, error) {
+                console.error(error); // Exibir erros no console em caso de problemas
+                alert('Ocorreu um erro ao deletar o item.');
+            }
+        });
+
+        $('#confirmacaoExclusaoModal').modal('hide'); // Ocultar o modal de confirmação
+    }
+    </script>
 </body>
 </html>

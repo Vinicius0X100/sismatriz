@@ -80,23 +80,23 @@
         </li>
         <li>
           
-          <a href="#">
+          <a href="<?php echo $domain; ?>admin/events">
             <i class='mdi mdi-party-popper' ></i>
             <span class="link_name">Eventos</span>
           </a>
           <ul class="sub-menu blank">
-            <li><a class="link_name" href="#">Eventos</a></li>
+            <li><a class="link_name" href="<?php echo $domain; ?>admin/events">Eventos</a></li>
           </ul>
         </li>
         
         <li>
           
-          <a href="#">
+          <a href="<?php echo $domain; ?>admin/financial">
             <i class='bx bx-line-chart' ></i>
             <span class="link_name">Financeiro</span>
           </a>
           <ul class="sub-menu blank">
-            <li><a class="link_name" href="#">Financeiro</a></li>
+            <li><a class="link_name" href="<?php echo $domain; ?>admin/financial">Financeiro</a></li>
           </ul>
         </li>
         <li>

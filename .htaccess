@@ -25,9 +25,13 @@ RewriteRule ^admin/turmas/crisma/add?$ pages/admin/recorders/addCrisma.php [NC,L
 RewriteRule ^admin/ac/escalas/add?$ pages/admin/recorders/addEscala.php [NC,L]
 RewriteRule ^admin/registers?$ pages/admin/views/registers.php [NC,L]
 RewriteRule ^admin/registers/add?$ pages/admin/recorders/addRegister.php [NC,L]
+RewriteRule ^admin/financial/add?$ pages/admin/recorders/addFinancial.php [NC,L]
 RewriteRule ^admin/edit-register/([0-9A-z_-]+)\/([0-9A-z_-]+)$ pages/admin/edit-register.php?id=$1
 
 RewriteRule ^admin/settings?$ pages/admin/views/settings.php [NC,L]
 RewriteRule ^admin/explore?$ pages/admin/views/explore.php [NC,L]
+
+RewriteRule ^admin/events$ pages/admin/views/events.php [NC,L]
+RewriteRule ^admin/financial$ pages/admin/views/financial.php [NC,L]
 
 ErrorDocument 404 /404.php

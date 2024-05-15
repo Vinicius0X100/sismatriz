@@ -116,14 +116,14 @@
                       <div class="card-body">
                        <span class="fs-4">Niveis de progresso</span>
                        <hr>
-                       <span class="badge text-bg-secondary">Não Iniciada</span>
-                       <br>
+                       <span class="badge text-bg-secondary mb-2">Não Iniciada</span>
+                       
                        <span class="badge text-bg-success">Formada</span>
-                       <br>
+                      
                        <span class="badge text-bg-warning">Em progresso</span>
-                       <br>
+                       
                        <span class="badge text-bg-danger">Cancelada</span>
-                       <br>
+                       
                       </div>
                    </div>
                 </div>

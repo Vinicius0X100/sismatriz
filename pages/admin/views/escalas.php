@@ -101,7 +101,7 @@
                           
                             <div class="mb-2">
                                 <div class="col-md-7">
-                                 <span style="font-family:var(--font-default)!important;">Turmas para Crisma</span>
+                                 <span style="font-family:var(--font-default)!important;">Escalas</span>
                                 </div>
                              </div> 
                           <table class="table table-stripd table-sm table-bordered table-hover text-center">
@@ -113,6 +113,7 @@
                                  <th scope="col">Data de lançamento</th>
                                  <th scope="col">Qntd. Acólitos Escalados</th>
                                  <th scope="col">Situação</th>
+                                 <th scope="col">Arquivo PDF</th>
                                  <th scope="col"></th>
                                 </tr>
                              </thead>
@@ -137,6 +138,7 @@
                                         <span class="badge text-bg-success">Concluída</span>
                                      <?php endif; ?>
                                      </td>
+                                     <td><a download href="<?php echo $domain; ?>uploads/escalas/<?php echo $info['pdf']; ?>" class="btn btn-sm btn-secondary mdi mdi-download">Download</a></td>
                                      <td>
                                         <button onClick="abrirModal(<?php echo isset($info['id']) ? $info['es_id'] : 0; ?>)"  class="btn btn-primary btn-sm"><span class="mdi mdi-eye"></span></button>
                                         <a href="<?php echo $domain; ?>admin/edit-escala/<?php echo $info['es_id']; ?>/<?php echo $info['es_id']; ?>" class="btn btn-success btn-sm"><span class="mdi mdi-pencil"></span></a>
@@ -165,7 +167,7 @@
         $.ajax({
             
             type: 'GET',
-            url: '../../core/get_user_info.php',
+            url: '../../core/get_escala_info.php',
             data: { userId: userId },
             success: function(response) {
                 $('#infoUsuarioBody').html(response); // Substitui o conteúdo do modal
@@ -215,7 +217,7 @@
         // Fazer requisição AJAX para buscar usuários com base no termo de pesquisa
         $.ajax({
             type: 'GET',
-            url: '../../core/SearchTableRegister.php',
+            url: '../../core/SearchTableEscala.php',
             data: { searchTerm: searchTerm },
             success: function(response) {
                 // Atualizar a tabela com os resultados da pesquisa

@@ -67,9 +67,21 @@ if(file_exists($_SERVER['DOCUMENT_ROOT']."/core/config.php"))
          </div>
         </div>
       </div>
+    
+      <div class="col-lg-4 mb-3">
+        <div class="spacement-div">
+         <div class="card">         
+          <div class="card-body">
+          <canvas id="myChart" style="width:100%;">
+            <p>Hello Fallback World</p>
+          </canvas>
+         </div>    
+        </div>  
+       </div>
+      </div>
 
       <div class="col-md-4 mb-3">
-       <div class="spacement-div">
+      
         <div class="card">             
          <div class="card-body">
           <span class="lead">Total de Registros</span>
@@ -89,19 +101,98 @@ if(file_exists($_SERVER['DOCUMENT_ROOT']."/core/config.php"))
             ?>
           </span>
          </div>
+        </div>      
+      </div>
+
+      <div class="col-md-4 mb-3" style="height:auto!important;">  
+      
+        <div class="card">             
+         <div class="card-body">
+          <span class="lead">Assistencia Social</span>
+          <hr>
+          <span class="display-5 mdi mdi-basket-outline">
+          <?php
+           
+            // Consulta SQL para contar o número de registros
+            $consultasocial = "SELECT COUNT(*) as total_social FROM social_assistant";
+            $resultadosocial = $mysqli->query($consultasocial) or die(mysqli_error($mysqli));
+
+            // Extrai o número total de registros
+            $total_social = $resultadosocial->fetch_assoc()['total_social'];
+
+            // Exibe o resultado em um echo
+            echo $total_social;
+            ?>
+          </span>
+         </div>
         </div> 
-       </div>
       </div>
-      <div class="col-md-4">
-         <div class="card">         
-          <div class="card-body">
-          <canvas id="myChart" style="width:100%;">
-            <p>Hello Fallback World</p>
-          </canvas>
-         </div>      
-       </div>
+
+  
+
+
+      <div class="col-md-5 mb-3">  
+       <div class="spacement-div">
+        <div class="card">             
+         <div class="card-body">
+          <span class="lead">Registro Financeiro</span>
+          <hr>
+          <span class="display-5 mdi mdi-cash">
+          <?php
+           
+            // Consulta SQL para contar o número de registros
+            $consulta_financial = "SELECT COUNT(*) as total_contas FROM financial";
+            $resultado_financeiro = $mysqli->query($consulta_financial) or die(mysqli_error($mysqli));
+
+            // Extrai o número total de registros
+            $total_contas = $resultado_financeiro->fetch_assoc()['total_contas'];
+
+            // Exibe o resultado em um echo
+            echo $total_contas;
+            ?>
+          </span>
+          <hr>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+               <th rule="row">#</th>
+               <th>Conta</th>
+               <th>Situação</th>
+             </tr>
+            </thead>
+            <tbody>
+            <?php    
+               $consulta = "SELECT * FROM financial ORDER BY id DESC LIMIT 6";
+               $con = $mysqli->query($consulta) or die (@mysqli_error());
+               $finan = $con->fetch_all(MYSQLI_ASSOC);
+              ?>
+             <?php foreach($finan as $info): ?>
+               <tr style="font-size:15px;">
+                 <th scope="row"><?php echo $info['id']; ?></th>
+                 <td><?php echo $info['type']; ?></td>
+                <td>
+                   <?php if($info['status'] == 0): ?>
+                    <span class="badge text-bg-warning">Pendente</span>
+                  <?php elseif($info['status'] == 1): ?>
+                    <span class="badge text-bg-success">Pago</span>
+                  <?php elseif($info['status'] == 2): ?>
+                    <span class="badge text-bg-danger">Vencida</span>
+                  <?php endif; ?>
+                </td>
+                  <tr>
+                 <?php endforeach?>
+             </tbody>
+            </table>
+           </div>
+          </div>
+         </div>
       </div>
+
+    
+
     </div>
+
+
    </main>
 
 
@@ -135,6 +226,8 @@ new Chart(ctx, {
 
 
    </script>
+
+
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
    <script src="<?php echo $domain; ?>/js/spinner.js"></script>
   <script src="<?php echo $domain; ?>/js/sidebar-adm.js"></script>
