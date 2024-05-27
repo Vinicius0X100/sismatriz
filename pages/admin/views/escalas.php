@@ -95,8 +95,6 @@
                                         <input type="text" id="searchInput" class="form-control" placeholder="Digite o mês...">
                                     </div>
                                 </div>
-
-
                             </form>
                           
                             <div class="mb-2">

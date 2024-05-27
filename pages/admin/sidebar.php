@@ -116,8 +116,8 @@
           
           <ul class="sub-menu">
             <li><a class="link_name" href="#">Administração</a></li>
-            <li><a href="#">Hierarquia</a></li>
-            <li><a href="#">Verificação de Sistema</a></li>
+            <li><a href="<?php echo $domain; ?>admin/hierarchy">Hierarquia</a></li>
+            <li><a href="<?php echo $domain; ?>admin/system-verify">Verificação de Sistema</a></li>
             <li><a href="#">Uploads</a></li>
           </ul>
         </li>

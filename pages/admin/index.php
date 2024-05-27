@@ -188,7 +188,49 @@ if(file_exists($_SERVER['DOCUMENT_ROOT']."/core/config.php"))
          </div>
       </div>
 
-    
+      <div class="col-md-3 mb-3">  
+      
+      <div class="card">             
+       <div class="card-body">
+        <span class="lead">Total de Uploads</span>
+        <hr>
+        <span class="display-5 mdi mdi-upload">
+        <?php
+         
+                    // Função para contar arquivos em um diretório e suas subpastas
+          function countFiles($dir) {
+            $fileCount = 0;
+
+            // Obtém todos os arquivos e diretórios no diretório
+            $files = glob($dir . '/*');
+
+            if ($files !== false) {
+                foreach ($files as $file) {
+                    // Se for um diretório, chama recursivamente a função para contar os arquivos nele
+                    if (is_dir($file)) {
+                        $fileCount += countFiles($file);
+                    } else {
+                        // Se for um arquivo, incrementa o contador
+                        $fileCount++;
+                    }
+                }
+            }
+
+            return $fileCount;
+          }
+
+          // Diretório onde os arquivos estão localizados
+          $uploadsDir = '../../uploads';
+
+          // Conta o número de arquivos dentro da pasta "uploads"
+          $totalFiles = countFiles($uploadsDir);
+          
+          echo $totalFiles;
+          ?>
+        </span>
+       </div>
+      </div> 
+    </div>
 
     </div>
 

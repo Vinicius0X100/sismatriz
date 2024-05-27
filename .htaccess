@@ -17,6 +17,8 @@ RewriteRule ^admin/turmas/catequese?$ pages/admin/views/catequese.php [NC,L]
 RewriteRule ^admin/turmas/acolitos$ pages/admin/views/acolitos.php [NC,L]
 RewriteRule ^admin/turmas/escola?$ pages/admin/views/escola.php [NC,L]
 RewriteRule ^admin/ac/escalas$ pages/admin/views/escalas.php [NC,L]
+RewriteRule ^admin/ac/efetivados$ pages/admin/views/efetivados_acolitos.php [NC,L]
+RewriteRule ^admin/ac/efetivados/add$ pages/admin/recorders/addAcolito.php [NC,L]
 
 RewriteRule ^admin/social-assistant?$ pages/admin/views/socialassistant.php [NC,L]
 RewriteRule ^admin/social-assistant/new?$ pages/admin/recorders/socialassistant_new.php [NC,L]
@@ -27,11 +29,15 @@ RewriteRule ^admin/registers?$ pages/admin/views/registers.php [NC,L]
 RewriteRule ^admin/registers/add?$ pages/admin/recorders/addRegister.php [NC,L]
 RewriteRule ^admin/financial/add?$ pages/admin/recorders/addFinancial.php [NC,L]
 RewriteRule ^admin/edit-register/([0-9A-z_-]+)\/([0-9A-z_-]+)$ pages/admin/edit-register.php?id=$1
+RewriteRule ^admin/ac/efetivados/edit-acolito/([0-9A-z_-]+)\/([0-9A-z_-]+)$ pages/admin/edit-acolito.php?id=$1
 
 RewriteRule ^admin/settings?$ pages/admin/views/settings.php [NC,L]
 RewriteRule ^admin/explore?$ pages/admin/views/explore.php [NC,L]
 
 RewriteRule ^admin/events$ pages/admin/views/events.php [NC,L]
 RewriteRule ^admin/financial$ pages/admin/views/financial.php [NC,L]
+
+RewriteRule ^admin/hierarchy$ pages/admin/views/hierarchy.php [NC,L]
+RewriteRule ^admin/system-verify$ pages/admin/views/system-verify.php [NC,L]
 
 ErrorDocument 404 /404.php
