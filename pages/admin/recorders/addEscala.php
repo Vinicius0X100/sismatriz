@@ -3,30 +3,36 @@
 
   $ext=".pdf";
   if (isset($_POST['month'])) {
-    
+
+    // Suas validações e manipulações de dados aqui...
+
     $month = filter_input(INPUT_POST, 'month', FILTER_SANITIZE_SPECIAL_CHARS);
     $church = filter_input(INPUT_POST, 'church', FILTER_SANITIZE_SPECIAL_CHARS);
     $send_date = filter_input(INPUT_POST, 'send_date', FILTER_SANITIZE_SPECIAL_CHARS);
     $qntd_acolitos = filter_input(INPUT_POST, 'qntd_acolitos', FILTER_SANITIZE_SPECIAL_CHARS);
-    $pdf = md5(sha1($n.$_FILES["pdf"]["month"])).$ext;
+    $pdf = md5(sha1($n . $_FILES["pdf"]["month"])) . $ext;
     $situation = filter_input(INPUT_POST, 'situation', FILTER_SANITIZE_SPECIAL_CHARS);
 
-    move_uploaded_file($_FILES['pdf']['tmp_name'], $_SERVER['DOCUMENT_ROOT']."/uploads/escalas/".$pdf);
+    move_uploaded_file($_FILES['pdf']['tmp_name'], $_SERVER['DOCUMENT_ROOT'] . "/uploads/escalas/" . $pdf);
 
-    $queryInsertCategorie = $mysqli->query("INSERT INTO escalas(`month`, church, send_date, qntd_acolitos, pdf, situation) VALUES ('$month', '$church', '$send_date', '$qntd_acolitos', '$pdf', '$situation')");
+    $queryInsertCategorie = $mysqli->query("INSERT INTO escalas(es_id, `month`, church, send_date, qntd_acolitos, pdf, situation) VALUES ('$es_id', '$month', '$church', '$send_date', '$qntd_acolitos', '$pdf', '$situation')");
 
     $affected_rows = @mysqli_affected_rows($mysqli);
 
-    if($affected_rows > 0){
-       
-        header("Location: {$domain}admin/ac/escalas");
+    if ($affected_rows > 0) {
+        $escalas_id = $mysqli->insert_id; // Obter o ID da escala inserida
 
-    }else{
-       
+        // Inserir dados na tabela "escalados"
+        foreach ($_POST['acolitos'] as $acolito_id) {
+            $mysqli->query("INSERT INTO escalados(escalas_id, acolitos_id) VALUES ('$escalas_id', '$acolito_id')");
+        }
+
+        header("Location: {$domain}admin/ac/escalas");
+    } else {
         header("Location: {$domain}admin/ac/escalas/add");
         $return = "<div class='alert alert-danger'><span class='mdi mdi-alert-circle'></span> Algo deu errado!</div>";
     }
-  }
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -47,7 +53,23 @@
         body{
         background-color:#F3F0F0;
       }
-      
+        /* Estilos CSS */
+        #acolitos-container {
+            margin-bottom: 20px;
+        }
+        .acolito {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .select-acolito{
+            margin-right: 10px;
+            border:none;
+            height:60px;
+
+            
+            outline:none;
+        }
     </style>
 </head>
 <body>
@@ -78,7 +100,7 @@
                   echo $return;
                  }
                 ?>
-           <form method="post" class="row g-3 formctrl" enctype="multipart/form-data">
+           <form method="post" id="escalas-form" class="row g-3 formctrl" enctype="multipart/form-data">
              <div class="col-4 form-floating">
                <input type="text" name="month" class="form-control" id="floatingInput" placeholder="name@example.com" required>
                <label for="floatingInput" style="margin-left:10px;">Mês</label>
@@ -98,7 +120,8 @@
              </div>
              <div class="col-5 form-floating">
                <input type="file" name="pdf" class="form-control" id="floatingInput" placeholder="name@example.com" required accept="pdf/*">
-               <label for="floatingInput" style="margin-left:10px;">Escala em PDF</label>
+               <label for="floatingInput" style="margin-left:10px;">Escala em Arquivo</label>
+               <small>Caso a escala já esteja montada em Excel ou Word, envie aqui.</small>
              </div>
              <div class="col-4">
              <label class="visually-hidden" for="specificSizeSelect">Situação</label>
@@ -106,6 +129,14 @@
                 <option value="0">Em progresso</option>
                 <option value="1">Concluída</option>
                </select>
+             </div>
+             <div class="col-4">
+             <label class="visually-hidden" for="specificSizeSelect">Acólitos</label>
+               <div id="acolitos-container">
+                <!-- Local para adicionar acólitos -->
+               </div>
+
+               <button class="mt-3 btn btn-secondary btn-sm mdi mdi-plus" type="button" id="adicionar-acolito">Adicionar Acolito</button>
              </div>
              <hr>          
           
@@ -123,6 +154,89 @@
   </main>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+   <!-- Script JavaScript -->
+   <!-- Seus scripts JavaScript aqui -->
+   <script>
+        $(document).ready(function() {
+            $('#escalas-form').submit(function(event) {
+                event.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: '<?php echo $_SERVER['PHP_SELF']; ?>',
+                    data: $(this).serialize(),
+                    success: function(response) {
+                        alert('Dados enviados com sucesso!');
+                        window.location.href = "<?php echo $domain; ?>admin/ac/escalas";
+                    },
+                    error: function(xhr, status, error) {
+                        alert('Ocorreu um erro ao enviar os dados.');
+                    }
+                });
+            });
+        });
+    </script>
+   <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Elemento onde os acólitos serão adicionados
+            var acolitosContainer = document.getElementById("acolitos-container");
+            
+            // Botão para adicionar acólitos
+            var adicionarAcolitoBtn = document.getElementById("adicionar-acolito");
+
+            // Contador para IDs dos acólitos
+            var acolitoCount = 0;
+
+            // Função para adicionar um novo campo de acólito
+            function adicionarAcolito() {
+                acolitoCount++;
+                var acolitoDiv = document.createElement("div");
+                acolitoDiv.classList.add("acolito");
+                acolitoDiv.innerHTML = `
+                    <label for="acolito-select${acolitoCount}">Ac/Cr - ${acolitoCount}:</label>
+                    <select id="acolito-select${acolitoCount}" class="select-acolito" name="acolitos[]">
+                        <!-- Options serão preenchidos via PHP -->
+                    </select>
+                    <button type="button" class="btn btn-sm btn-danger remover-acolito" data-acolito-id="${acolitoCount}">Remover</button>
+                `;
+                acolitosContainer.appendChild(acolitoDiv);
+
+                // Preencher o select com os acólitos via Ajax
+                preencherSelectAcolitos(acolitoDiv.querySelector(`#acolito-select${acolitoCount}`));
+            }
+
+            // Função para preencher o select de acólitos com dados via Ajax
+            function preencherSelectAcolitos(selectElement) {
+                var xhr = new XMLHttpRequest();
+                xhr.open("GET", "<?php echo $domain; ?>/core/get_acolitos_for_scale.php", true);
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        var acolitos = JSON.parse(xhr.responseText);
+                        for (var i = 0; i < acolitos.length; i++) {
+                            var option = document.createElement("option");
+                            option.text = acolitos[i].name;
+                            option.value = acolitos[i].id;
+                            selectElement.appendChild(option);
+                        }
+                    }
+                };
+                xhr.send();
+            }
+
+            // Event listener para adicionar acólito quando clicar no botão
+            adicionarAcolitoBtn.addEventListener("click", function() {
+                adicionarAcolito();
+            });
+
+            // Event listener para remover acólito quando clicar no botão
+            acolitosContainer.addEventListener("click", function(event) {
+                if (event.target.classList.contains("remover-acolito")) {
+                    var acolitoId = event.target.getAttribute("data-acolito-id");
+                    var acolitoDiv = document.querySelector(`.acolito select[name='acolitos[]'][id='acolito-select${acolitoId}']`).parentNode;
+                    acolitosContainer.removeChild(acolitoDiv);
+                }
+            });
+        });
+    </script>
     <script>
         $(document).ready(function() {
             $('#cep').on('input', function() {

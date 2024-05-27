@@ -21,11 +21,11 @@
 
     if($affected_rows > 0){
        
-        header("Location: {$domain}admin/ac/escalas");
+        header("Location: {$domain}admin/financial");
 
     }else{
        
-        header("Location: {$domain}admin/ac/escalas/add");
+        header("Location: {$domain}admin/financial/add");
         $return = "<div class='alert alert-danger'><span class='mdi mdi-alert-circle'></span> Algo deu errado!</div>";
     }
   }

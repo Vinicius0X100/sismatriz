@@ -13,7 +13,7 @@ if (isset($_POST['userId'])) {
         if ($mysqli->query($sql) === TRUE) {
             echo "Escala finalizada com sucesso!";
         } else {
-            echo "Erro ao deletar o usuário: " . $conn->error;
+            echo "Erro ao deletar a escala: " . $conn->error;
         }
 
         $mysqli->close(); // Fechar conexão com o banco de dados

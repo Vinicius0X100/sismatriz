@@ -28,7 +28,7 @@
         .upbtns{
             justify-content:space-between;
         }
-    </style>
+    </style> 
 </head>
 <body>
 <!-- Modal -->
@@ -40,7 +40,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body" id="infoUsuarioBody">
-       
+      
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
@@ -138,7 +138,7 @@
                                      </td>
                                      <td><a download href="<?php echo $domain; ?>uploads/escalas/<?php echo $info['pdf']; ?>" class="btn btn-sm btn-secondary mdi mdi-download">Download</a></td>
                                      <td>
-                                        <button onClick="abrirModal(<?php echo isset($info['id']) ? $info['es_id'] : 0; ?>)"  class="btn btn-primary btn-sm"><span class="mdi mdi-eye"></span></button>
+                                        <button onClick="abrirModal(<?php echo isset($info['es_id']) ? $info['es_id'] : 0; ?>)"  class="btn btn-primary btn-sm"><span class="mdi mdi-eye"></span></button>
                                         <a href="<?php echo $domain; ?>admin/edit-escala/<?php echo $info['es_id']; ?>/<?php echo $info['es_id']; ?>" class="btn btn-success btn-sm"><span class="mdi mdi-pencil"></span></a>
                                         <button onClick="confirmarExclusao(<?php echo isset($info['es_id']) ? $info['es_id'] : 0; ?>)" class="btn btn-danger btn-sm"><span class="mdi mdi-trash-can"></span></button>
                                     </td>
@@ -158,7 +158,7 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
             // Função para abrir o modal e carregar o conteúdo via AJAX
-    function abrirModal(userId) {
+    function abrirModal(escalaId) {
         $('#infoUsuarioModal').modal('show');
 
         // Fazer requisição AJAX para carregar dados do usuário com o ID específico
@@ -166,7 +166,7 @@
             
             type: 'GET',
             url: '../../core/get_escala_info.php',
-            data: { userId: userId },
+            data: { escalaId: escalaId },
             success: function(response) {
                 $('#infoUsuarioBody').html(response); // Substitui o conteúdo do modal
                 console.log(response);
@@ -194,12 +194,12 @@
             data: { userId: userId },
             success: function(response) {
                 // Exibir mensagem de sucesso ou recarregar a página
-                alert('Usuário deletado com sucesso!');
+                alert('Escala deletado com sucesso!');
                 window.location.reload(); // Recarregar a página para refletir as alterações
             },
             error: function(xhr, status, error) {
                 console.error(error); // Exibir erros no console em caso de problemas
-                alert('Ocorreu um erro ao deletar o usuário.');
+                alert('Ocorreu um erro ao deletar a escala.');
             }
         });
 
