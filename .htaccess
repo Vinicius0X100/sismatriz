@@ -37,6 +37,9 @@ RewriteRule ^admin/explore?$ pages/admin/views/explore.php [NC,L]
 RewriteRule ^admin/events$ pages/admin/views/events.php [NC,L]
 RewriteRule ^admin/financial$ pages/admin/views/financial.php [NC,L]
 
+RewriteRule ^admin/sm-users/edit$ pages/admin/views/sm-users-edit.php [NC,L]
+RewriteRule ^admin/sm-users$ pages/admin/views/sm-users.php [NC,L]
+
 RewriteRule ^admin/hierarchy$ pages/admin/views/hierarchy.php [NC,L]
 RewriteRule ^admin/system-verify$ pages/admin/views/system-verify.php [NC,L]
 

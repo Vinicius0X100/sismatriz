@@ -141,7 +141,7 @@
           </a>
           
           <ul class="sub-menu blank">
-            <li><a class="link_name" href="#">Usuários SM (Adm)</a></li>
+            <li><a class="link_name" href="<?php echo $domain; ?>admin/sm-users">Usuários SM (Adm)</a></li>
           </ul>
         </li>
           
